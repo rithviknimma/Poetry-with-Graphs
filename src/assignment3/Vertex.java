@@ -23,8 +23,12 @@ class Vertex <T> {
 		edges.replace(vertex, edgeCount++);
 	}
 	
-	public T getT() {
+	public T getName() {
 		return name;
+	}
+	
+	public Map<T,Integer> getMap(){
+		return edges;
 	}
 	
 }
