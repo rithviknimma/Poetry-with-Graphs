@@ -20,7 +20,8 @@ class Vertex <T> {
 	// to increase the weight of a vertex
 	public void incrementEdgeCount(T vertex) {
 		int edgeCount = edges.get(vertex);
-		edges.replace(vertex, edgeCount++);
+		edgeCount++;
+		edges.replace(vertex, edgeCount);
 	}
 	
 	public T getName() {
