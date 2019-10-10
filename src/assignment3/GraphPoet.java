@@ -10,8 +10,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class GraphPoet {
@@ -58,6 +56,7 @@ public class GraphPoet {
     	    	}
     	    }
     	}
+    	br.close();
     }
     
     
@@ -126,6 +125,8 @@ public class GraphPoet {
         	poem += inputWords[inputWords.length - 1]; // add last word
         }
         
+        br.close();
+        
         
         return poem;
     }
@@ -134,16 +135,13 @@ public class GraphPoet {
     public String returnMiddleWord(String vertex, String nextVertex) {
     	String middleVertex = "DNE";
     	int maxMiddleVertexWeight = 0;
-    	int vertexIndex = 0, nextVertexIndex = 0;
+    	int vertexIndex = 0;
     	
     	if(graphValues.contains(vertex) && graphValues.contains(nextVertex)) {
-    		// get indexes of vertex and nextVertex
+    		// get indexes of vertex
     		for(int i = 0; i < graph.size(); i++) {
     			if(graph.get(i).getName().equals(vertex)) {
     				vertexIndex = i;
-    			}
-    			if(graph.get(i).getName().equals(nextVertex)) {
-    				nextVertexIndex = i;
     			}
     		}
     		

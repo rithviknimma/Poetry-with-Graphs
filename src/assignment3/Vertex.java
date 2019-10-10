@@ -14,7 +14,7 @@ class Vertex <T> {
 	
 	Vertex(T name){
 		this.name = name;
-		edges = new HashMap();
+		edges = new HashMap<>();
 	}
 	
 	// adds new vextex with edgecount to 
