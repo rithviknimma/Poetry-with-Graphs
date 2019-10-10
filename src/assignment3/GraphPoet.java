@@ -35,7 +35,7 @@ public class GraphPoet {
     		lowercase = st.toLowerCase(); // convert all words to lowercase
     	    String[] line = lowercase.split(" "); // array of words for one line
     	    String lastVertex;
-    	    boolean sequenceHasAppeared;
+    	    boolean sequenceHasAppeared; // boolean to check if sequence has already appeard; this is for edge weight 
     	    
     	    for(String newVertex : line) {
     	    	if(graphValues.contains(newVertex) == false) { // new vertex to add
@@ -43,22 +43,21 @@ public class GraphPoet {
     	    		graph.add(new Vertex<String>(newVertex));
     	    		sequenceHasAppeared = false;
     	    		
-    	    		// connect vertex to previous one if it exists
+    	    		// connect vertex to previous one if previous one exists
     	    		if(graph.size() > 1) {
     	    			lastVertex = graphValues.get(graphValues.size()-2); // get previous vertex from graphValues
-    	    			connectVertex(lastVertex, newVertex, sequenceHasAppeared); // add new vertex to the right previous vertex from graph
+    	    			connectVertex(lastVertex, newVertex, sequenceHasAppeared); // add new vertex to the previous vertex from graph
     	    		}
     	    	}
-    	    	else { // if graph contains this word dont add it to vertex again but connect vertices with previous edge
+    	    	else { // graph already contains this word
     	    		
     	    		lastVertex = graphValues.get(graphValues.size()-1);
     	    		sequenceHasAppeared = sequenceHasAppeared(lastVertex, newVertex);
-    	    		graphValues.add(newVertex); // add it to list of words though to make sure new vertices are added to right vexter
+    	    		graphValues.add(newVertex); // add it to list of words to keep track of previous vertex
     	    		connectVertex(lastVertex, newVertex, sequenceHasAppeared);
     	    	}
     	    }
     	}
-    	//printGraph();
     }
     
     
@@ -86,7 +85,7 @@ public class GraphPoet {
 		}
     }
     
-    // prints graph
+    // prints graph for debugging purposes
     public void printGraph() {
     	for(int i = 0; i < graph.size(); i++) {
     		System.out.println(graph.get(i).getName()+": "+graph.get(i).getMap());
@@ -110,12 +109,13 @@ public class GraphPoet {
         
         while((st = br.readLine()) != null) {
         	lowercase = st.toLowerCase();
-        	String[] line = lowercase.split(" ");
+        	String[] line = lowercase.split(" "); // all lowercase letters to compare with graph vertices
+        	String[] inputWords = st.split(" "); // input intact for poem creation
         	String middleWord;
         	
         	// writes poem
-        	for(int i = 0; i < line.length - 1; i++) {
-        		poem = poem + line[i] + " ";
+        	for(int i = 0; i < inputWords.length - 1; i++) {
+        		poem = poem + inputWords[i] + " "; // to preserve capital letters of input, using inputWords
         		
         		// add middleWord if it exists
         		middleWord = returnMiddleWord(line[i], line[i+1]);
@@ -123,7 +123,7 @@ public class GraphPoet {
         			poem += middleWord + " ";
         		}
         	}
-        	poem += line[line.length - 1]; // add last word
+        	poem += inputWords[inputWords.length - 1]; // add last word
         }
         
         
@@ -147,7 +147,7 @@ public class GraphPoet {
     			}
     		}
     		
-    		Set<String> middleVertices = graph.get(vertexIndex).getMap().keySet();
+    		Set<String> middleVertices = graph.get(vertexIndex).getMap().keySet(); // get all middle vertices
     		
     		for(String middleWord : middleVertices) {
     			int wordIndex = getVertexIndex(middleWord);
