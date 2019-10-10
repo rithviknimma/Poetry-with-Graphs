@@ -112,6 +112,11 @@ public class GraphPoet {
         	String[] inputWords = st.split(" "); // input intact for poem creation
         	String middleWord;
         	
+        	// remove punctuation from input for better processing
+        	for(int i = 0; i < line.length; i++) {
+        		line[i] = removePunctuation(line[i]);
+        	}
+        	
         	// writes poem
         	for(int i = 0; i < inputWords.length - 1; i++) {
         		poem = poem + inputWords[i] + " "; // to preserve capital letters of input, using inputWords
@@ -127,8 +132,13 @@ public class GraphPoet {
         
         br.close();
         
-        
         return poem;
+    }
+    
+    // removes punctuation to compare words with graph
+    public String removePunctuation(String word) {
+    	
+    	return word.replaceAll("\\p{Punct}", "");
     }
     
     // return bridge word between vertices if it exists
