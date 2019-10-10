@@ -1,3 +1,8 @@
+/* EE422C Assignment #3 submission by 
+ * <Rithvik Baddam>
+ * <rrb2442>
+ */
+
 package assignment3;
 
 import java.util.HashMap;
