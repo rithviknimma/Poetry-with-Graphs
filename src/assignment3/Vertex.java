@@ -12,6 +12,7 @@ class Vertex <T> {
 	private T name;
 	private Map<T,Integer> edges; // L is a vertex, Integer is the weight}
 	
+	
 	Vertex(T name){
 		this.name = name;
 		edges = new HashMap<>();
